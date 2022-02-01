@@ -472,7 +472,7 @@ class URL:
 
     BASE = "/playlists"
     HISTORY_BASE = (
-        "https://github.githistory.xyz/vitokorn/telegram-to-spotify-archive/"
+        "https://github.githistory.xyz/vitokorn/telegram-to-spotify/"
         "blob/master/playlists"
     )
 
@@ -683,7 +683,7 @@ def push_updates(now):
     token = os.getenv("GITHUB_ACCESS_TOKEN")
     url = (
         f"https://vitokorn:{token}@github.com/vitokorn/"
-        "telegram-to-spotify-archive.git"
+        "telegram-to-spotify.git"
     )
     remote_add = run(["git", "remote", "add", "origin", url])
     if remote_add.returncode != 0:
