@@ -26,8 +26,8 @@ saturday = (mnd + timedelta(days=5)).strftime("%Y-%m-%d")
 s1 = (mnd + timedelta(days=5))
 sunday = (mnd + timedelta(days=6)).strftime("%Y-%m-%d")
 sa1 = (mnd + timedelta(days=6))
-month = (mnd + timedelta(days=2)).strftime("%Y-%m")
-
+wednesdaymonth = (mnd + timedelta(days=2)).strftime("%Y-%m")
+staturdaymonth = (mnd + timedelta(days=5)).strftime("%Y-%m")
 
 # def check(s):
 #     print('check')
@@ -58,22 +58,27 @@ with TelegramClient('session_name', int(api_id), api_hash) as client:
     # monday
     count = 0
     lists = []
+    if wednesdaymonth == staturdaymonth:
+        days = [wednesdaymonth]
+    else:
+        days = [wednesdaymonth,staturdaymonth]
 
-    for message in client.iter_messages(chat, search=f"Release Date: {month}"):
-            # print(message.text)
-        # lists = check2()
-        test = re.findall('\[(.*?)\]', message.text)
-        if test:
-                # print(test)
-            if '—' in test[0]:
-                strs = test[0].lstrip().rstrip()
-                lists.append(strs)
-                    # if test[0] in f.read():
-                    #     print(f'\n{test[0]}')
-                    #     pass
-                    # else:
-                    #     f.write(f'\n{test[0]}')
-                count += 1
+    for day in days:
+        for message in client.iter_messages(chat, search=f"Release Date: {day}"):
+                # print(message.text)
+            # lists = check2()
+            test = re.findall('\[(.*?)\]', message.text)
+            if test:
+                    # print(test)
+                if '—' in test[0]:
+                    strs = test[0].lstrip().rstrip()
+                    lists.append(strs)
+                        # if test[0] in f.read():
+                        #     print(f'\n{test[0]}')
+                        #     pass
+                        # else:
+                        #     f.write(f'\n{test[0]}')
+                    count += 1
 
     print(count)
     with open(f'{current_path}/test.txt', "r+") as f:
